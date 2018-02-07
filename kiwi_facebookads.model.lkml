@@ -13,45 +13,45 @@ datagroup: kiwi_facebookads_default_datagroup {
 
 persist_with: kiwi_facebookads_default_datagroup
 
-explore: ad_accounts {}
-
-explore: ad_accounts_view {}
-
-explore: ad_sets {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ad_sets.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: ad_sets_view {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ad_sets_view.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: ads {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: ads_view {
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads_view.campaign_id} = ${campaigns.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: campaigns {}
-
-explore: campaigns_view {}
+# explore: ad_accounts {}
+#
+# explore: ad_accounts_view {}
+#
+# explore: ad_sets {
+#   join: campaigns {
+#     type: left_outer
+#     sql_on: ${ad_sets.campaign_id} = ${campaigns.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: ad_sets_view {
+#   join: campaigns {
+#     type: left_outer
+#     sql_on: ${ad_sets_view.campaign_id} = ${campaigns.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: ads {
+#   join: campaigns {
+#     type: left_outer
+#     sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: ads_view {
+#   join: campaigns {
+#     type: left_outer
+#     sql_on: ${ads_view.campaign_id} = ${campaigns.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: campaigns {}
+#
+# # explore: campaigns_view {}
 
 explore: insights {
   join: ads {
@@ -65,18 +65,24 @@ explore: insights {
     sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
     relationship: many_to_one
   }
-}
 
-explore: insights_view {
-  join: ads {
+join: ad_sets {
     type: left_outer
-    sql_on: ${insights_view.ad_id} = ${ads.id} ;;
-    relationship: many_to_one
-  }
-
-  join: campaigns {
-    type: left_outer
-    sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
+    sql_on: ${ads.adset_id} = ${ad_sets.id} ;;
     relationship: many_to_one
   }
 }
+
+# explore: insights_view {
+#   join: ads {
+#     type: left_outer
+#     sql_on: ${insights_view.ad_id} = ${ads.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: campaigns {
+#     type: left_outer
+#     sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
+#     relationship: many_to_one
+#   }
+# }
