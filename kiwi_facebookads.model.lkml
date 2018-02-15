@@ -71,6 +71,31 @@ join: ad_sets {
     sql_on: ${ads.adset_id} = ${ad_sets.id} ;;
     relationship: many_to_one
   }
+
+join: pages {
+    type:  left_outer
+    sql_on:  ${ad_sets.name} = ${pages.utm_campaign} ;;
+    relationship:  many_to_many
+    required_joins: [ads]
+  }
+  join: users {
+    type: left_outer
+    sql_on: ${pages.user_id} = ${users.id} ;;
+    relationship: many_to_one
+    required_joins: [pages]
+  }
+  join: completed_order {
+    type: left_outer
+    sql_on: ${pages.anonymous_id} = ${completed_order.anonymous_id} ;;
+    relationship: many_to_many
+    required_joins: [pages]
+  }
+  join: email_submitted {
+    type: left_outer
+    sql_on: ${pages.anonymous_id} = ${email_submitted.anonymous_id} ;;
+    relationship: many_to_many
+    required_joins: [pages]
+  }
 }
 
 # explore: insights_view {

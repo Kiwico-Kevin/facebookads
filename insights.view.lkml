@@ -179,6 +179,13 @@ view: insights {
     sql: ${TABLE}.website_clicks ;;
   }
 
+  measure: cost_per_acq_multi_device_channel {
+    type: number
+    value_format: "$#,##0.00"
+    sql: ${total_spend}/NULLIF(${completed_order.distinct_orders},0) ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id, ads.name, ads.id]
