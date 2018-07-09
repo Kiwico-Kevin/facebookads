@@ -4,7 +4,7 @@ connection: "kiwi_facebookads"
 include: "*.view"
 
 # include all the dashboards
-include: "*.dashboard"
+#include: "*.dashboard"
 
 datagroup: kiwi_facebookads_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -53,28 +53,28 @@ persist_with: kiwi_facebookads_default_datagroup
 #
 # # explore: campaigns_view {}
 
-explore: insights {
+explore: last_insight {
   join: ads {
     type: left_outer
-    sql_on: ${insights.ad_id} = ${ads.id} ;;
+    sql_on: ${last_insight.ad_id} = ${ads.id} ;;
     relationship: many_to_one
   }
 
-  join: campaigns {
+  join: last_campaign{
     type: left_outer
-    sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
+    sql_on: ${ads.campaign_id} = ${last_campaign.id} ;;
     relationship: many_to_one
   }
 
-join: ad_sets {
+join: last_adset {
     type: left_outer
-    sql_on: ${ads.adset_id} = ${ad_sets.id} ;;
+    sql_on: ${ads.adset_id} = ${last_adset.id} ;;
     relationship: many_to_one
   }
 
 join: pages {
     type:  left_outer
-    sql_on:  ${ad_sets.name} = ${pages.utm_campaign} ;;
+    sql_on:  ${last_adset.name} = ${pages.utm_campaign} ;;
     relationship:  many_to_many
     required_joins: [ads]
   }
