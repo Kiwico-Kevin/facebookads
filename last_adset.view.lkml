@@ -7,7 +7,7 @@ view: last_adset {
           AS name
       FROM
         ad_sets ;;
-      sql_trigger_value: SELECT CURRENT_DATE() ;;
+#       sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
 
 

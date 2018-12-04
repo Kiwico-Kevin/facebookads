@@ -19,6 +19,22 @@ view: pages {
     sql: ${TABLE}.anonymous_id ;;
   }
 
+  dimension: ad_id {
+    type: string
+    sql: ${TABLE}.context_campaign_ad ;;
+  }
+
+  dimension: adset_id {
+    type: string
+    sql: ${TABLE}.context_campaign_adset ;;
+  }
+
+
+  dimension: placement_id {
+    type: string
+    sql: ${TABLE}.context_campaign_placement ;;
+  }
+
 #   dimension: context_campaign_3_a_2_f_2_fwww_tinkercrate_com_2_fjoin_3_futm_source {
 #     type: string
 #     sql: ${TABLE}.context_campaign_3_a_2_f_2_fwww_tinkercrate_com_2_fjoin_3_futm_source ;;

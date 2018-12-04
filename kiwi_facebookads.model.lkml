@@ -74,7 +74,7 @@ join: last_adset {
 
 join: pages {
     type:  left_outer
-    sql_on:  ${last_adset.name} = ${pages.utm_campaign} ;;
+    sql_on:  ${last_insight.ad_id} = ${pages.ad_id} ;;
     relationship:  many_to_many
     required_joins: [ads]
   }
