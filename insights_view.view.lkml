@@ -13,12 +13,17 @@ view: insights_view {
     sql: ${TABLE}.ad_id ;;
   }
 
-  dimension: clicks {
-    type: number
+  measure: call_to_action_clicks {
+    type:sum_distinct
+    sql: ${TABLE}.call_to_action_clicks ;;
+  }
+
+  measure: clicks {
+    type: sum_distinct
     sql: ${TABLE}.clicks ;;
   }
 
-  dimension_group: date_start {
+  dimension_group: date {
     type: time
     timeframes: [
       raw,
@@ -32,19 +37,19 @@ view: insights_view {
     sql: ${TABLE}.date_start ;;
   }
 
-  dimension_group: date_stop {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.date_stop ;;
-  }
+#   dimension_group: date_stop {
+#     type: time
+#     timeframes: [
+#       raw,
+#       time,
+#       date,
+#       week,
+#       month,
+#       quarter,
+#       year
+#     ]
+#     sql: ${TABLE}.date_stop ;;
+#   }
 
   dimension: deeplink_clicks {
     type: number
@@ -56,8 +61,8 @@ view: insights_view {
     sql: ${TABLE}.frequency ;;
   }
 
-  dimension: impressions {
-    type: number
+  measure: impressions {
+    type: sum_distinct
     sql: ${TABLE}.impressions ;;
   }
 
@@ -66,47 +71,66 @@ view: insights_view {
     sql: ${TABLE}.inline_post_engagements ;;
   }
 
-  dimension: link_clicks {
-    type: number
+  measure: link_clicks {
+    type: sum_distinct
     sql: ${TABLE}.link_clicks ;;
   }
 
-  dimension_group: loaded {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.loaded_at ;;
-  }
+#   dimension_group: loaded {
+#     type: time
+#     timeframes: [
+#       raw,
+#       time,
+#       date,
+#       week,
+#       month,
+#       quarter,
+#       year
+#     ]
+#     sql: ${TABLE}.loaded_at ;;
+#   }
 
-  dimension: newsfeed_clicks {
-    type: number
+  measure: newsfeed_clicks {
+    type: sum_distinct
     sql: ${TABLE}.newsfeed_clicks ;;
   }
 
-  dimension: newsfeed_impressions {
-    type: number
+  measure: newsfeed_impressions {
+    type: sum_distinct
     sql: ${TABLE}.newsfeed_impressions ;;
   }
 
-  dimension: social_clicks {
-    type: number
+  measure: reach {
+    type: sum_distinct
+    sql: ${TABLE}.reach ;;
+  }
+
+#   dimension_group: received {
+#     type: time
+#     timeframes: [
+#       raw,
+#       time,
+#       date,
+#       week,
+#       month,
+#       quarter,
+#       year
+#     ]
+#     sql: ${TABLE}.received_at ;;
+#   }
+
+  measure: social_clicks {
+    type: sum_distinct
     sql: ${TABLE}.social_clicks ;;
   }
 
-  dimension: social_impressions {
-    type: number
+  measure: social_impressions {
+    type: sum_distinct
     sql: ${TABLE}.social_impressions ;;
   }
 
-  dimension: social_spend {
-    type: number
+  measure: social_spend {
+    type: sum_distinct
     sql: ${TABLE}.social_spend ;;
   }
 
@@ -115,39 +139,52 @@ view: insights_view {
     sql: ${TABLE}.spend ;;
   }
 
-  dimension: unique_clicks {
-    type: number
+  measure: total_spend {
+    type: sum_distinct
+    value_format: "$#,##0.00"
+    sql: ${TABLE}.spend ;;
+  }
+
+  measure: unique_clicks {
+    type: sum_distinct
     sql: ${TABLE}.unique_clicks ;;
   }
 
-  dimension: unique_impressions {
-    type: number
+  measure: unique_impressions {
+    type: sum_distinct
     sql: ${TABLE}.unique_impressions ;;
   }
 
-  dimension: unique_social_clicks {
-    type: number
+  measure: unique_social_clicks {
+    type: sum_distinct
     sql: ${TABLE}.unique_social_clicks ;;
   }
 
-  dimension_group: uuid_ts {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.uuid_ts ;;
-  }
+#   dimension_group: uuid_ts {
+#     type: time
+#     timeframes: [
+#       raw,
+#       time,
+#       date,
+#       week,
+#       month,
+#       quarter,
+#       year
+#     ]
+#     sql: ${TABLE}.uuid_ts ;;
+#   }
 
-  dimension: website_clicks {
-    type: number
+  measure: website_clicks {
+    type: sum_distinct
     sql: ${TABLE}.website_clicks ;;
   }
+
+  measure: cost_per_acq_multi_device_channel {
+    type: number
+    value_format: "$#,##0.00"
+    sql: ${total_spend}/NULLIF(${completed_order.distinct_orders},0) ;;
+  }
+
 
   measure: count {
     type: count

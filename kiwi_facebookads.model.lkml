@@ -53,28 +53,28 @@ persist_with: kiwi_facebookads_default_datagroup
 #
 # # explore: campaigns_view {}
 
-explore: last_insight {
+explore: insights_view {
   join: ads {
     type: left_outer
-    sql_on: ${last_insight.ad_id} = ${ads.id} ;;
+    sql_on: ${insights_view.ad_id} = ${ads.id} ;;
     relationship: many_to_one
   }
 
-  join: last_campaign{
+  join: campaigns_view{
     type: left_outer
-    sql_on: ${ads.campaign_id} = ${last_campaign.id} ;;
+    sql_on: ${ads.campaign_id} = ${campaigns_view.id} ;;
     relationship: many_to_one
   }
 
-join: last_adset {
+join: ad_sets_view {
     type: left_outer
-    sql_on: ${ads.adset_id} = ${last_adset.id} ;;
+    sql_on: ${ads.adset_id} = ${ad_sets_view.id} ;;
     relationship: many_to_one
   }
 
 join: pages {
     type:  left_outer
-    sql_on:  ${last_insight.ad_id} = ${pages.ad_id} ;;
+    sql_on:  ${insights_view.ad_id} = ${pages.ad_id} ;;
     relationship:  many_to_many
     required_joins: [ads]
   }
@@ -104,7 +104,7 @@ join: pages {
 #     sql_on: ${insights_view.ad_id} = ${ads.id} ;;
 #     relationship: many_to_one
 #   }
-#
+# }
 #   join: campaigns {
 #     type: left_outer
 #     sql_on: ${ads.campaign_id} = ${campaigns.id} ;;
